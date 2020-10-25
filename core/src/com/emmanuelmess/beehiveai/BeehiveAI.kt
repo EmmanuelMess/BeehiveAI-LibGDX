@@ -30,7 +30,7 @@ class BeehiveAI : ApplicationAdapter() {
     private lateinit var blockTexture: Texture
 
     override fun create() {
-        Gdx.graphics.isContinuousRendering = true
+        Gdx.graphics.isContinuousRendering = false
         Gdx.graphics.requestRendering()
 
         camera = OrthographicCamera().apply {
