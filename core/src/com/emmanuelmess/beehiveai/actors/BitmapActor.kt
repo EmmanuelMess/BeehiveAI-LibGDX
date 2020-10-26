@@ -1,4 +1,4 @@
-package com.emmanuelmess.beehiveai.actor
+package com.emmanuelmess.beehiveai.actors
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image

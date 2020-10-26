@@ -1,11 +1,12 @@
-package com.emmanuelmess.beehiveai.actor
+package com.emmanuelmess.beehiveai.actors
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
+import com.emmanuelmess.beehiveai.BeehiveAI
 
 
-class AgentActor(texture: Texture): BitmapActor(texture) {
+class AgentActor(): BitmapActor(BeehiveAI.agentTexture) {
     companion object {
         val AGENT_WIDTH = 40
         val AGENT_HEIGHT = 40

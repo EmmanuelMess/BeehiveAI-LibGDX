@@ -5,16 +5,18 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.emmanuelmess.beehiveai.actor.BlockActor
+import com.emmanuelmess.beehiveai.actors.AgentActor
+import com.emmanuelmess.beehiveai.actors.BlockActor
 
-class BeehiveAI : ApplicationAdapter() {
+object BeehiveAI : ApplicationAdapter() {
     object Size {
-        const val WIDTH = 1440f
-        const val HEIGHT = 2560f
+        const val WIDTH = 800f
+        const val HEIGHT = 600f
 
         const val C = 10f
     }
@@ -25,7 +27,12 @@ class BeehiveAI : ApplicationAdapter() {
     private lateinit var textViewport: FitViewport
 
     lateinit var stage: Stage
-    private lateinit var blockTexture: Texture
+    lateinit var blockGroup: Group
+
+    lateinit var actorGroup: Group
+
+    lateinit var blockTexture: Texture
+    lateinit var agentTexture: Texture
 
     override fun create() {
         Gdx.graphics.isContinuousRendering = false
@@ -39,9 +46,24 @@ class BeehiveAI : ApplicationAdapter() {
         textViewport = FitViewport(Size.WIDTH, Size.HEIGHT)
 
         blockTexture = BlockActor.getTexture()
+        agentTexture = AgentActor.getTexture()
+
+        blockGroup = Group().apply {
+            addActor(BlockActor())
+        }
+
+        actorGroup = Group().apply {
+            addActor(AgentActor().also {
+                it.x = 10f
+                it.y = 15f
+            })
+        }
 
         stage = Stage(textViewport).also {
-            it.addActor(Container(BlockActor(blockTexture)).apply {
+            it.addActor(Container(blockGroup).apply {
+                setFillParent(true)
+            })
+            it.addActor(Container(actorGroup).apply {
                 setFillParent(true)
             })
         }
