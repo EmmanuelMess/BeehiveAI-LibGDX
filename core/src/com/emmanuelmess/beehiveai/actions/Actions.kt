@@ -6,9 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.emmanuelmess.beehiveai.BeehiveAI
 import com.emmanuelmess.beehiveai.actors.BlockActor
 
-class CreateBlockAt(x: Int, y: Int): Action() {
+class CreateBlockAt(val x: Int, val y: Int): Action() {
     override fun act(delta: Float): Boolean {
-        BeehiveAI.blockGroup.addActor(BlockActor())
+        BeehiveAI.blockGroup.addActor(BlockActor().also {
+            it.setPosition(x.toFloat(), y.toFloat())
+        })
         return true
     }
 }
@@ -18,6 +20,7 @@ val AgentPutBlock = { x: Int, y: Int ->
             MoveToAction().also {
                 it.x = x.toFloat()
                 it.y = y.toFloat()
+                it.duration = 1f
             },
             CreateBlockAt(x, y)
     )

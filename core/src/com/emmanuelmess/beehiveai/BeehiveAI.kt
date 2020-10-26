@@ -10,8 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Container
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.emmanuelmess.beehiveai.actors.AgentActor
+import com.emmanuelmess.beehiveai.actors.FriendAgent
 import com.emmanuelmess.beehiveai.actors.BlockActor
+import com.emmanuelmess.beehiveai.actors.FoeAgent
 
 object BeehiveAI : ApplicationAdapter() {
     object Size {
@@ -27,12 +28,13 @@ object BeehiveAI : ApplicationAdapter() {
     private lateinit var textViewport: FitViewport
 
     lateinit var stage: Stage
-    lateinit var blockGroup: Group
 
+    lateinit var blockGroup: Group
     lateinit var actorGroup: Group
 
     lateinit var blockTexture: Texture
-    lateinit var agentTexture: Texture
+    lateinit var friendAgentTexture: Texture
+    lateinit var foeAgentTexture: Texture
 
     override fun create() {
         Gdx.graphics.isContinuousRendering = false
@@ -46,14 +48,15 @@ object BeehiveAI : ApplicationAdapter() {
         textViewport = FitViewport(Size.WIDTH, Size.HEIGHT)
 
         blockTexture = BlockActor.getTexture()
-        agentTexture = AgentActor.getTexture()
+        friendAgentTexture = FriendAgent.getTexture()
+        foeAgentTexture = FoeAgent.getTexture()
 
         blockGroup = Group().apply {
             addActor(BlockActor())
         }
 
         actorGroup = Group().apply {
-            addActor(AgentActor().also {
+            addActor(FriendAgent().also {
                 it.x = 10f
                 it.y = 15f
             })
@@ -67,6 +70,8 @@ object BeehiveAI : ApplicationAdapter() {
                 setFillParent(true)
             })
         }
+
+        AI.act()
     }
 
     override fun resize(width: Int, height: Int) {
@@ -79,6 +84,7 @@ object BeehiveAI : ApplicationAdapter() {
                 or if(Gdx.graphics.bufferFormat.coverageSampling) GL20.GL_COVERAGE_BUFFER_BIT_NV else 0)
 
         stage.draw()
+        stage.act()
     }
 
     override fun dispose() {
