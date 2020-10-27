@@ -19,8 +19,6 @@ object Game : ApplicationAdapter() {
     object Size {
         const val WIDTH = 800f
         const val HEIGHT = 600f
-
-        const val C = 10f
     }
 
     private lateinit var viewport: FillViewport
@@ -71,7 +69,7 @@ object Game : ApplicationAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        stage.viewport.update(width, height, true)
+        stage.viewport.update((width), (height), true)
     }
 
     override fun render() {

@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture
 
 class BulletActor(): BitmapActor(getTexture()) {
     companion object {
-        val BULLET_WIDTH = 5
-        val BULLET_HEIGHT = 5
+        val BULLET_WIDTH = 100
+        val BULLET_HEIGHT = 100
 
         fun getTexture(): Texture {
             Pixmap(BULLET_WIDTH, BULLET_HEIGHT, Pixmap.Format.RGBA8888).also {
