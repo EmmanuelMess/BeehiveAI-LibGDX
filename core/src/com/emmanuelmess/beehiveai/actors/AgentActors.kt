@@ -3,14 +3,11 @@ package com.emmanuelmess.beehiveai.actors
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.emmanuelmess.beehiveai.BeehiveAI
-import java.lang.Math.pow
-import kotlin.math.sqrt
 
 const val AGENT_WIDTH = 40
 const val AGENT_HEIGHT = 40

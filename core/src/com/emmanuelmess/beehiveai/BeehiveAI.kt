@@ -5,14 +5,10 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.physics.bullet.Bullet
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Container
-import com.badlogic.gdx.utils.Pool
 import com.badlogic.gdx.utils.Pools
 import com.badlogic.gdx.utils.viewport.FillViewport
-import com.badlogic.gdx.utils.viewport.FitViewport
 import com.emmanuelmess.beehiveai.actors.BlockActor
 import com.emmanuelmess.beehiveai.actors.BulletActor
 import com.emmanuelmess.beehiveai.actors.FoeAgent
@@ -29,8 +25,6 @@ object BeehiveAI : ApplicationAdapter() {
 
     private lateinit var viewport: FillViewport
     private lateinit var camera: OrthographicCamera
-
-    private lateinit var textViewport: FitViewport
 
     lateinit var stage: Stage
 

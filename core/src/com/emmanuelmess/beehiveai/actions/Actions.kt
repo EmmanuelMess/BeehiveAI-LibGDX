@@ -2,10 +2,8 @@ package com.emmanuelmess.beehiveai.actions
 
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.emmanuelmess.beehiveai.BeehiveAI
-import com.emmanuelmess.beehiveai.actors.AgentActor
 import com.emmanuelmess.beehiveai.actors.BlockActor
 
 class CreateBlockAt(val x: Int, val y: Int): Action() {
