@@ -3,11 +3,10 @@ package com.emmanuelmess.beehiveai.actors
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.emmanuelmess.beehiveai.Game
 import com.emmanuelmess.beehiveai.actions.CreateBlockAtAction
+import com.emmanuelmess.beehiveai.actions.MoveToWidthinAction
 import com.emmanuelmess.beehiveai.actions.ShootingAtAction
 
 const val AGENT_WIDTH = 40
@@ -34,19 +33,8 @@ open class PawnActor(texture: Texture): BitmapActor(texture) {
     }
 
     fun gotToWithinPlaceBlock(x: Float, y: Float) {
-        val start = Vector2(this.x, this.y)
-        val pseudoEnd = Vector2(x, y)
-        val dist = pseudoEnd.sub(start)
-        val realEnd = dist.cpy().nor().scl(dist.len() - AGENT_WIDTH /4)
-
-        actions.clear()
-
         addAction(SequenceAction(
-                MoveToAction().also {
-                    it.x = start.x + realEnd.x
-                    it.y = start.y + realEnd.y
-                    it.duration = realEnd.len() / AGENT_VELOCITY
-                },
+                MoveToWidthinAction(x, y, AGENT_VELOCITY),
                 CreateBlockAtAction(x.toInt(), y.toInt())
         ))
     }
