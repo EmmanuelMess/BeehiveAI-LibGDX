@@ -53,10 +53,7 @@ object Game : ApplicationAdapter() {
         friendAgentTexture = FriendAgent.getTexture()
         foeAgentTexture = FoeAgent.getTexture()
 
-        blockGroup = Group().apply {
-            addActor(BlockActor())
-        }
-
+        blockGroup = Group()
         actorGroup = Group()
         bulletGroup = Group()
 

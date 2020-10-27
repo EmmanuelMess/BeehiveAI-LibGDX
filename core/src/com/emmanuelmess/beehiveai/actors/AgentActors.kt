@@ -50,7 +50,7 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
                                 val pos = Vector2()
                                 val hit = Game.actorFoeGroup.children.filter { found ->
                                     pos.set(found.x, found.y).dst(it.x, it.y) < HIT_RANGE
-                                }.first()
+                                }.firstOrNull()
 
                                 Game.actorFoeGroup.removeActor(hit)
                                 this.shootingTarget = null
