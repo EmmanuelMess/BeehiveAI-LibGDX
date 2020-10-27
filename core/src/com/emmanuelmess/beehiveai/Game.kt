@@ -11,8 +11,8 @@ import com.badlogic.gdx.utils.Pools
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.emmanuelmess.beehiveai.actors.BlockActor
 import com.emmanuelmess.beehiveai.actors.BulletActor
-import com.emmanuelmess.beehiveai.actors.FoeAgent
-import com.emmanuelmess.beehiveai.actors.FriendAgent
+import com.emmanuelmess.beehiveai.actors.FoePawn
+import com.emmanuelmess.beehiveai.actors.FriendPawn
 
 
 object Game : ApplicationAdapter() {
@@ -29,9 +29,9 @@ object Game : ApplicationAdapter() {
     lateinit var stage: Stage
 
     lateinit var blockGroup: Group
-    lateinit var actorGroup: Group
-    lateinit var actorFoeGroup: Group
-    lateinit var actorFriendGroup: Group
+    lateinit var pawnGroup: Group
+    lateinit var pawnFoeGroup: Group
+    lateinit var pawnFriendGroup: Group
     lateinit var bulletGroup: Group
 
     var shotsPool = Pools.get(BulletActor::class.java)
@@ -50,21 +50,21 @@ object Game : ApplicationAdapter() {
         viewport = FillViewport(Size.WIDTH, Size.HEIGHT, camera)
 
         blockTexture = BlockActor.getTexture()
-        friendAgentTexture = FriendAgent.getTexture()
-        foeAgentTexture = FoeAgent.getTexture()
+        friendAgentTexture = FriendPawn.getTexture()
+        foeAgentTexture = FoePawn.getTexture()
 
         blockGroup = Group()
-        actorGroup = Group()
+        pawnGroup = Group()
         bulletGroup = Group()
 
-        actorFriendGroup = Group()
-        actorFoeGroup = Group()
+        pawnFriendGroup = Group()
+        pawnFoeGroup = Group()
 
         stage = Stage(viewport).also {
             it.addActor(blockGroup)
-            actorGroup.addActor(actorFoeGroup)
-            actorGroup.addActor(actorFriendGroup)
-            it.addActor(actorGroup)
+            pawnGroup.addActor(pawnFoeGroup)
+            pawnGroup.addActor(pawnFriendGroup)
+            it.addActor(pawnGroup)
             it.addActor(bulletGroup)
         }
 

@@ -1,6 +1,6 @@
 package com.emmanuelmess.beehiveai
 
-import com.emmanuelmess.beehiveai.actors.FoeAgent
+import com.emmanuelmess.beehiveai.actors.FoePawn
 
 object EnemyAI {
     private var isDone = false
@@ -8,7 +8,7 @@ object EnemyAI {
     fun act() {
         if(isDone) return
 
-        Game.actorFoeGroup.addActor(FoeAgent().apply {
+        Game.pawnFoeGroup.addActor(FoePawn().apply {
             x = 100f
             y = 100f
         })

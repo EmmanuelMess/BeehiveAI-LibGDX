@@ -1,7 +1,6 @@
 package com.emmanuelmess.beehiveai
 
-import com.emmanuelmess.beehiveai.actors.AgentActor
-import com.emmanuelmess.beehiveai.actors.FriendAgent
+import com.emmanuelmess.beehiveai.actors.FriendPawn
 
 object AI {
     private var isDone = false
@@ -9,16 +8,16 @@ object AI {
     fun act() {
         if(isDone) return
 
-        val actor = FriendAgent().also {
+        val actor = FriendPawn().also {
             it.x = Game.Size.WIDTH / 2
             it.y = Game.Size.HEIGHT / 2
         }
 
-        Game.actorFriendGroup.addActor(actor)
+        Game.pawnFriendGroup.addActor(actor)
 
         actor.gotToWithinPlaceBlock(Game.Size.WIDTH - 200, Game.Size.HEIGHT - 300)
 
-        val foeAgents = Game.actorFoeGroup.children
+        val foeAgents = Game.pawnFoeGroup.children
 
         if (foeAgents.isEmpty) return
 

@@ -14,7 +14,7 @@ const val AGENT_WIDTH = 40
 const val AGENT_HEIGHT = 40
 const val AGENT_MARGIN = 7
 
-open class AgentActor(texture: Texture): BitmapActor(texture) {
+open class PawnActor(texture: Texture): BitmapActor(texture) {
     companion object {
         const val AGENT_VELOCITY = 50f
 
@@ -24,7 +24,7 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
         private val COOLDOWN_TIME = 1f
     }
 
-    var shootingTarget: AgentActor? = null
+    var shootingTarget: PawnActor? = null
 
     private var lastShot = 0f
 
@@ -37,7 +37,7 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
             return
         }
 
-        shootingTarget?.let { shootingTarget: AgentActor ->
+        shootingTarget?.let { shootingTarget: PawnActor ->
             val bullet = Game.shotsPool.obtain()
 
             Game.bulletGroup.addActor(bullet.also {
@@ -54,11 +54,11 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
                         RunnableAction().also { action ->
                             action.runnable = Runnable {
                                 val pos = Vector2()
-                                val hit = Game.actorFoeGroup.children.filter { found ->
+                                val hit = Game.pawnFoeGroup.children.filter { found ->
                                     pos.set(found.x, found.y).dst(it.x, it.y) < HIT_RANGE
                                 }.firstOrNull()
 
-                                Game.actorFoeGroup.removeActor(hit)
+                                Game.pawnFoeGroup.removeActor(hit)
                                 this.shootingTarget = null
 
                                 Game.bulletGroup.removeActor(it)
@@ -93,7 +93,7 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
     }
 }
 
-class FriendAgent: AgentActor(Game.friendAgentTexture) {
+class FriendPawn: PawnActor(Game.friendAgentTexture) {
     companion object {
         fun getTexture(): Texture {
             Pixmap(AGENT_WIDTH, AGENT_HEIGHT, Pixmap.Format.RGBA8888).also {
@@ -107,7 +107,7 @@ class FriendAgent: AgentActor(Game.friendAgentTexture) {
     }
 }
 
-class FoeAgent: AgentActor(Game.foeAgentTexture) {
+class FoePawn: PawnActor(Game.foeAgentTexture) {
     companion object {
         fun getTexture(): Texture {
             Pixmap(AGENT_WIDTH, AGENT_HEIGHT, Pixmap.Format.RGBA8888).also {
