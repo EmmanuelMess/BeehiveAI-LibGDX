@@ -8,18 +8,24 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.emmanuelmess.beehiveai.Game
+import com.emmanuelmess.beehiveai.actions.CreateBlockAt
 
 const val AGENT_WIDTH = 40
 const val AGENT_HEIGHT = 40
 const val AGENT_MARGIN = 7
 
 open class AgentActor(texture: Texture): BitmapActor(texture) {
+    companion object {
+        const val AGENT_VELOCITY = 50f
+
+        private val BULLET_VELOCITY = 300f
+        private val HIT_RANGE = 5
+
+        private val COOLDOWN_TIME = 1f
+    }
+
     var shootingTarget: AgentActor? = null
 
-    private val BULLET_VELOCITY = 300f
-    private val HIT_RANGE = 5
-
-    private val COOLDOWN_TIME = 1f
     private var lastShot = 0f
 
     override fun act(delta: Float) {
@@ -64,6 +70,26 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
         }
 
         lastShot = 0f
+    }
+
+    fun gotToWithinPlaceBlock(x: Float, y: Float) {
+        val start = Vector2(this.x, this.y)
+        val pseudoEnd = Vector2(x, y)
+        val dist = pseudoEnd.sub(start)
+        val realEnd = dist.cpy().nor().scl(dist.len() - AGENT_WIDTH /4)
+
+        actions.clear()
+
+        shootingTarget = null
+
+        addAction(SequenceAction(
+                MoveToAction().also {
+                    it.x = start.x + realEnd.x
+                    it.y = start.y + realEnd.y
+                    it.duration = realEnd.len() / AGENT_VELOCITY
+                },
+                CreateBlockAt(x.toInt(), y.toInt())
+        ))
     }
 }
 

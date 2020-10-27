@@ -7,11 +7,11 @@ import com.emmanuelmess.beehiveai.Game
 
 class BlockActor(): BitmapActor(Game.blockTexture) {
     companion object {
-        val BLOCK_WIDTH = 40
-        val BLOCK_HEIGHT = 40
+        val BLOCK_WIDTH = 80
+        val BLOCK_HEIGHT = 80
 
         fun getTexture(): Texture {
-            Pixmap(BLOCK_HEIGHT, BLOCK_HEIGHT, Pixmap.Format.RGBA8888).also {
+            Pixmap(BLOCK_WIDTH, BLOCK_HEIGHT, Pixmap.Format.RGBA8888).also {
                 it.setColor(Color.BROWN)
                 it.fillRectangle(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT)
 

@@ -1,5 +1,6 @@
 package com.emmanuelmess.beehiveai.actions
 
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
@@ -13,15 +14,4 @@ class CreateBlockAt(val x: Int, val y: Int): Action() {
         })
         return true
     }
-}
-
-val AgentPutBlock = { x: Int, y: Int ->
-    SequenceAction(
-            MoveToAction().also {
-                it.x = x.toFloat()
-                it.y = y.toFloat()
-                it.duration = 1f
-            },
-            CreateBlockAt(x, y)
-    )
 }

@@ -7,16 +7,22 @@ object AI {
     private var isDone = false
 
     fun act() {
-        Game.actorFriendGroup.addActor(FriendAgent().also {
+        if(isDone) return
+
+        val actor = FriendAgent().also {
             it.x = Game.Size.WIDTH / 2
             it.y = Game.Size.HEIGHT / 2
-        })
+        }
+
+        Game.actorFriendGroup.addActor(actor)
+
+        actor.gotToWithinPlaceBlock(Game.Size.WIDTH - 200, Game.Size.HEIGHT - 300)
 
         val foeAgents = Game.actorFoeGroup.children
 
         if (foeAgents.isEmpty) return
 
-        (Game.actorFriendGroup.getChild(0) as AgentActor).shootingTarget = foeAgents.get(0) as AgentActor
+        //actor.shootingTarget = foeAgents.get(0) as AgentActor
 
         isDone = true
     }
