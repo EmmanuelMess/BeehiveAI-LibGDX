@@ -1,17 +1,22 @@
 package com.emmanuelmess.beehiveai
 
 import com.emmanuelmess.beehiveai.actors.AgentActor
-import com.emmanuelmess.beehiveai.actors.FoeAgent
+import com.emmanuelmess.beehiveai.actors.FriendAgent
 
 object AI {
     private var isDone = false
 
     fun act() {
-        val foeAgents = BeehiveAI.actorFoeGroup.children
+        Game.actorFriendGroup.addActor(FriendAgent().also {
+            it.x = Game.Size.WIDTH / 2
+            it.y = Game.Size.HEIGHT / 2
+        })
 
-        if(foeAgents.isEmpty) return
+        val foeAgents = Game.actorFoeGroup.children
 
-        (BeehiveAI.actorFriendGroup.getChild(0) as AgentActor).shootingTarget = foeAgents.get(0) as AgentActor
+        if (foeAgents.isEmpty) return
+
+        (Game.actorFriendGroup.getChild(0) as AgentActor).shootingTarget = foeAgents.get(0) as AgentActor
 
         isDone = true
     }

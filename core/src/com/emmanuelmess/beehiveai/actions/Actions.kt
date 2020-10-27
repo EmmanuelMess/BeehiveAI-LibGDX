@@ -3,12 +3,12 @@ package com.emmanuelmess.beehiveai.actions
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
-import com.emmanuelmess.beehiveai.BeehiveAI
+import com.emmanuelmess.beehiveai.Game
 import com.emmanuelmess.beehiveai.actors.BlockActor
 
 class CreateBlockAt(val x: Int, val y: Int): Action() {
     override fun act(delta: Float): Boolean {
-        BeehiveAI.blockGroup.addActor(BlockActor().also {
+        Game.blockGroup.addActor(BlockActor().also {
             it.setPosition(x.toFloat(), y.toFloat())
         })
         return true

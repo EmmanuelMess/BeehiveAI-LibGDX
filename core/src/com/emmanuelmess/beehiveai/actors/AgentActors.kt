@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
-import com.emmanuelmess.beehiveai.BeehiveAI
+import com.emmanuelmess.beehiveai.Game
 
 const val AGENT_WIDTH = 40
 const val AGENT_HEIGHT = 40
@@ -32,9 +32,9 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
         }
 
         shootingTarget?.let { shootingTarget: AgentActor ->
-            val bullet = BeehiveAI.shotsPool.obtain()
+            val bullet = Game.shotsPool.obtain()
 
-            BeehiveAI.bulletGroup.addActor(bullet.also {
+            Game.bulletGroup.addActor(bullet.also {
                 val start = Vector2(x, y)
                 val end = Vector2(shootingTarget.x, shootingTarget.y)
 
@@ -48,15 +48,15 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
                         RunnableAction().also { action ->
                             action.runnable = Runnable {
                                 val pos = Vector2()
-                                val hit = BeehiveAI.actorFoeGroup.children.filter { found ->
+                                val hit = Game.actorFoeGroup.children.filter { found ->
                                     pos.set(found.x, found.y).dst(it.x, it.y) < HIT_RANGE
                                 }.first()
 
-                                BeehiveAI.actorFoeGroup.removeActor(hit)
+                                Game.actorFoeGroup.removeActor(hit)
                                 this.shootingTarget = null
 
-                                BeehiveAI.bulletGroup.removeActor(it)
-                                BeehiveAI.shotsPool.free(it)
+                                Game.bulletGroup.removeActor(it)
+                                Game.shotsPool.free(it)
                             }
                         }
                 ))
@@ -67,7 +67,7 @@ open class AgentActor(texture: Texture): BitmapActor(texture) {
     }
 }
 
-class FriendAgent: AgentActor(BeehiveAI.friendAgentTexture) {
+class FriendAgent: AgentActor(Game.friendAgentTexture) {
     companion object {
         fun getTexture(): Texture {
             Pixmap(AGENT_WIDTH, AGENT_HEIGHT, Pixmap.Format.RGBA8888).also {
@@ -81,7 +81,7 @@ class FriendAgent: AgentActor(BeehiveAI.friendAgentTexture) {
     }
 }
 
-class FoeAgent: AgentActor(BeehiveAI.foeAgentTexture) {
+class FoeAgent: AgentActor(Game.foeAgentTexture) {
     companion object {
         fun getTexture(): Texture {
             Pixmap(AGENT_WIDTH, AGENT_HEIGHT, Pixmap.Format.RGBA8888).also {

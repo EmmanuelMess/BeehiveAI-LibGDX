@@ -3,9 +3,9 @@ package com.emmanuelmess.beehiveai.actors
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.emmanuelmess.beehiveai.BeehiveAI
+import com.emmanuelmess.beehiveai.Game
 
-class BlockActor(): BitmapActor(BeehiveAI.blockTexture) {
+class BlockActor(): BitmapActor(Game.blockTexture) {
     companion object {
         val BLOCK_WIDTH = 40
         val BLOCK_HEIGHT = 40

@@ -8,7 +8,7 @@ object EnemyAI {
     fun act() {
         if(isDone) return
 
-        BeehiveAI.actorFoeGroup.addActor(FoeAgent().apply {
+        Game.actorFoeGroup.addActor(FoeAgent().apply {
             x = 100f
             y = 100f
         })

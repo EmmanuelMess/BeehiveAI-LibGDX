@@ -15,7 +15,7 @@ import com.emmanuelmess.beehiveai.actors.FoeAgent
 import com.emmanuelmess.beehiveai.actors.FriendAgent
 
 
-object BeehiveAI : ApplicationAdapter() {
+object Game : ApplicationAdapter() {
     object Size {
         const val WIDTH = 800f
         const val HEIGHT = 600f
@@ -60,12 +60,7 @@ object BeehiveAI : ApplicationAdapter() {
         actorGroup = Group()
         bulletGroup = Group()
 
-        actorFriendGroup = Group().apply {
-            addActor(FriendAgent().also {
-                it.x = 10f
-                it.y = 15f
-            })
-        }
+        actorFriendGroup = Group()
         actorFoeGroup = Group()
 
         stage = Stage(viewport).also {
