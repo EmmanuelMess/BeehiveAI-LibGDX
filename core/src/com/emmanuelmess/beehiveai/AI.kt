@@ -1,5 +1,6 @@
 package com.emmanuelmess.beehiveai
 
+import com.badlogic.gdx.utils.Align.center
 import com.emmanuelmess.beehiveai.actors.FriendPawn
 
 object AI {
@@ -8,9 +9,9 @@ object AI {
     fun act() {
         if(isDone) return
 
-        val actor = FriendPawn().also {
-            it.x = Game.Size.WIDTH / 2
-            it.y = Game.Size.HEIGHT / 2
+        val actor = FriendPawn().apply {
+            setX(Game.Size.WIDTH / 2, center)
+            setY(Game.Size.HEIGHT / 2, center)
         }
 
         Game.pawnFriendGroup.addActor(actor)

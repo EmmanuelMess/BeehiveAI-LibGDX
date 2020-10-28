@@ -3,6 +3,8 @@ package com.emmanuelmess.beehiveai.actors
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.emmanuelmess.beehiveai.Game
 import com.emmanuelmess.beehiveai.actions.CreateBlockAtAction
@@ -21,6 +23,30 @@ open class PawnActor(texture: Texture): BitmapActor(texture) {
         private val HIT_RANGE = 5
 
         private val COOLDOWN_TIME = 1f
+    }
+
+    init {
+        Game.colisionChecker.pawns.add(this)
+    }
+
+    fun onShot(bullet: BulletActor) {
+        if(bullet.shooter === this) {
+            return
+        }
+
+        remove()
+    }
+
+    fun shotSomething(actor: Actor) {
+        if(actor !is PawnActor) {
+            return
+        }
+
+        for (action in actions) {
+            if(action is ShootingAtAction) {
+                removeAction(action)
+            }
+        }
     }
 
     fun fireOnTo(actor: PawnActor) {

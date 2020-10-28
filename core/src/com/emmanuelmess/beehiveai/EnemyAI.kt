@@ -1,5 +1,7 @@
 package com.emmanuelmess.beehiveai
 
+import com.badlogic.gdx.utils.Align.center
+import com.badlogic.gdx.utils.Align.topLeft
 import com.emmanuelmess.beehiveai.actors.FoePawn
 import com.emmanuelmess.beehiveai.actors.PawnActor
 
@@ -10,8 +12,8 @@ object EnemyAI {
         if(isDone) return
 
         Game.pawnFoeGroup.addActor(FoePawn().apply {
-            x = 100f
-            y = 100f
+            setX(100f, center)
+            setY(100f, center)
             fireOnTo(Game.pawnFriendGroup.getChild(0) as PawnActor)
         })
         isDone = true

@@ -3,9 +3,11 @@ package com.emmanuelmess.beehiveai.actions
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
+import com.badlogic.gdx.utils.Align.center
 import com.emmanuelmess.beehiveai.Game
 import com.emmanuelmess.beehiveai.actors.BulletActor
 import com.emmanuelmess.beehiveai.actors.PawnActor
@@ -31,10 +33,9 @@ class ShootingAtAction(
             val start = Vector2(actor.x, actor.y)
             val end = Vector2(shootingTarget.x, shootingTarget.y)
 
-            it.setPosition(start.x, start.y)
-            it.addAction(ShotBulletAction(start, end, bulletVelocity, hitRange) {
-                actor?.removeAction(this)
-            })
+            it.shooter = actor as PawnActor
+            it.setPosition(start.x, start.y, center)
+            it.addAction(ShotBulletAction(start, end, bulletVelocity, hitRange))
         })
 
         lastShot = 0f
@@ -43,25 +44,13 @@ class ShootingAtAction(
     }
 }
 
-val ShotBulletAction = { start: Vector2, end: Vector2, bulletVelocity: Float, hitRange: Int, onHit: () -> Unit ->
+val ShotBulletAction = { start: Vector2, end: Vector2, bulletVelocity: Float, hitRange: Int ->
     SequenceAction(
             MoveToAction().also { action ->
                 action.x = end.x
                 action.y = end.y
                 action.duration = start.dst(end) / bulletVelocity
             },
-            object : RunnableAction() {
-                override fun run(): Unit = (actor as BulletActor).let { bulletActor ->
-                    Game.bulletGroup.removeActor(bulletActor)
-                    Game.shotsPool.free(bulletActor)
-
-                    Game.pawnGroup.children.flatMap { (it as Group).children }.firstOrNull { found ->
-                        Vector2(found.x, found.y).dst(bulletActor.x, bulletActor.y) < hitRange
-                    }?.let { hit ->
-                        hit.parent.removeActor(hit)
-                        onHit()
-                    }
-                }
-            }
+            Actions.removeActor()
     )
 }

@@ -21,6 +21,8 @@ object Game : ApplicationAdapter() {
         const val HEIGHT = 600f
     }
 
+    val colisionChecker = ColisionChecker()
+
     private lateinit var viewport: FillViewport
     private lateinit var camera: OrthographicCamera
 
@@ -82,6 +84,8 @@ object Game : ApplicationAdapter() {
 
         AI.act()
         EnemyAI.act()
+
+        colisionChecker.doChecks()
     }
 
     override fun dispose() {

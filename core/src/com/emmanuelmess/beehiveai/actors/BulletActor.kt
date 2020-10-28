@@ -3,8 +3,10 @@ package com.emmanuelmess.beehiveai.actors
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.emmanuelmess.beehiveai.Game
 
-class BulletActor(): BitmapActor(getTexture()) {
+class BulletActor: BitmapActor(getTexture()) {
     companion object {
         val BULLET_WIDTH = 100
         val BULLET_HEIGHT = 100
@@ -16,5 +18,21 @@ class BulletActor(): BitmapActor(getTexture()) {
                 return Texture(it)
             }
         }
+    }
+
+    init {
+        Game.colisionChecker.bullets.add(this)
+    }
+
+    var shooter: PawnActor? = null
+
+    fun onHit(actor: Actor) {
+        if(actor === shooter) {
+            return
+        }
+
+        shooter?.shotSomething(actor)
+        remove()
+        Game.shotsPool.free(this)
     }
 }
