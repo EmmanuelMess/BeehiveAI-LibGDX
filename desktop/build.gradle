@@ -54,6 +54,12 @@ repositories {
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "org.deeplearning4j:deeplearning4j-parallel-wrapper:$dl4j"
+    implementation "org.deeplearning4j:deeplearning4j-core:$dl4j"
+    implementation "org.deeplearning4j:deeplearning4j-ui:$dl4j"
+    implementation "org.deeplearning4j:arbiter-deeplearning4j:$dl4j"
+    implementation "org.nd4j:nd4j-native-platform:$dl4j"
 }
 compileKotlin {
     kotlinOptions {
