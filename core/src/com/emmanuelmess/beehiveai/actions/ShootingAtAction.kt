@@ -14,8 +14,6 @@ import com.emmanuelmess.beehiveai.actors.PawnActor
 
 class ShootingAtAction(
         val shootingTarget: PawnActor,
-        val bulletVelocity: Float,
-        val hitRange: Int,
         val cooldownTime: Float
 ) : Action() {
     private var lastShot = 0f
@@ -35,7 +33,7 @@ class ShootingAtAction(
 
             it.shooter = actor as PawnActor
             it.setPosition(start.x, start.y, center)
-            it.addAction(ShotBulletAction(start, end, bulletVelocity, hitRange))
+            it.addAction(ShotBulletAction(start, end, BulletActor.BULLET_VELOCITY))
         })
 
         lastShot = 0f
@@ -44,7 +42,7 @@ class ShootingAtAction(
     }
 }
 
-val ShotBulletAction = { start: Vector2, end: Vector2, bulletVelocity: Float, hitRange: Int ->
+val ShotBulletAction = { start: Vector2, end: Vector2, bulletVelocity: Float ->
     SequenceAction(
             MoveToAction().also { action ->
                 action.x = end.x

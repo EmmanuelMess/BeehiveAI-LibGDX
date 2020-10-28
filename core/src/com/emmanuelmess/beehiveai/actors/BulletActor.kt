@@ -11,6 +11,8 @@ class BulletActor: BitmapActor(getTexture()) {
         val BULLET_WIDTH = 100
         val BULLET_HEIGHT = 100
 
+        val BULLET_VELOCITY = 500f
+
         fun getTexture(): Texture {
             Pixmap(BULLET_WIDTH, BULLET_HEIGHT, Pixmap.Format.RGBA8888).also {
                 it.setColor(Color.BLACK)

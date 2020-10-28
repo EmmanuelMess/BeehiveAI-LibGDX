@@ -19,9 +19,6 @@ open class PawnActor(texture: Texture): BitmapActor(texture) {
     companion object {
         const val AGENT_VELOCITY = 50f
 
-        private val BULLET_VELOCITY = 500f
-        private val HIT_RANGE = 5
-
         private val COOLDOWN_TIME = 1f
     }
 
@@ -50,12 +47,7 @@ open class PawnActor(texture: Texture): BitmapActor(texture) {
     }
 
     fun fireOnTo(actor: PawnActor) {
-        addAction(ShootingAtAction(
-                actor,
-                BULLET_VELOCITY,
-                HIT_RANGE,
-                COOLDOWN_TIME
-        ))
+        addAction(ShootingAtAction(actor, COOLDOWN_TIME))
     }
 
     fun gotToWithinPlaceBlock(x: Float, y: Float) {
