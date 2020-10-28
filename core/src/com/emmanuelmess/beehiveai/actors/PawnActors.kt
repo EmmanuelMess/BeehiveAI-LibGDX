@@ -19,7 +19,7 @@ open class PawnActor(texture: Texture): BitmapActor(texture) {
     companion object {
         const val AGENT_VELOCITY = 50f
 
-        private val BULLET_VELOCITY = 300f
+        private val BULLET_VELOCITY = 500f
         private val HIT_RANGE = 5
 
         private val COOLDOWN_TIME = 1f
